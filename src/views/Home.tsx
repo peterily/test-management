@@ -30,12 +30,12 @@ function getItem(
 const items: MenuItem[] = [
   getItem('Option 1', '/home/page1', <PieChartOutlined />),
   getItem('Option 2', '/home/page2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
+  getItem('User', 'page3', <UserOutlined />, [
     getItem('Tom', '3'),
     getItem('Bill', '4'),
     getItem('Alex', '5'),
   ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+  getItem('Team', 'page4', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
   getItem('Files', '9', <FileOutlined />),
 ];
 
@@ -50,13 +50,18 @@ const Home: React.FC = () => {
     console.log(e.key)
     // 点击要跳转到对应的路由 
     navigateTo(e.key)
-   }
-
+  }
+  const [openkeys,setOpenkeys]=useState([''])
+  const handleChange =  (key:string[]) => {
+    const tempKey = key
+    tempKey.shift()
+    setOpenkeys(tempKey)
+} 
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onClick={menuClick } />
+        <Menu theme="dark" defaultSelectedKeys={['/home/page1']} mode="inline" items={items} onClick={menuClick} onOpenChange={handleChange} openKeys={openkeys} />
       </Sider>
       <Layout className="site-layout">
         {/* <Header style={{ padding: 0, background: colorBgContainer }} /> */}
