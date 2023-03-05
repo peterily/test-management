@@ -3,9 +3,10 @@ import Home from '@/views/Home'
 import { Navigate } from 'react-router-dom';
 // 懒加载
 import React ,{lazy}from 'react'
-const About = lazy(() => import('@/views/About'))
 const Page1 = lazy(() => import('@/views/Page1'))
-const Page2=lazy(() => import('@/views/Page2'))
+const Page2 = lazy(() => import('@/views/Page2'))
+const Page301 = lazy(() => import('@/views/Page301'))
+const Page302=lazy(()=>import('@/views/Page302'))
 const withLoadingComponent = (comp:JSX.Element):JSX.Element => {
     return (<React.Suspense fallback={<div>loading...</div>}>
         {comp}
@@ -28,13 +29,17 @@ const routes = [
             {
                 path: 'page2',
                 element:withLoadingComponent(<Page2></Page2>)
+            },
+            {
+                path: 'page3/page301',
+                element:withLoadingComponent(<Page301></Page301>)
+                
+            },
+            {
+                path: 'page3/page302',
+                element:withLoadingComponent(<Page302></Page302>)
             }
         ]
-    },
-    {
-        path: '/about',
-        // element:<About></About>
-        element:withLoadingComponent(<About/>)
     },
     // 嵌套路由 结束-------------------
 // 访问其余的都直接到首页：
